@@ -19,25 +19,50 @@
 
 
 import os
+from typing import Optional
 
-add = lambda a, b: a + b
-multiply = lambda a, b: a * b
-divide = lambda a, b: a / b
+class Operation:
+    name = ""
+    function = None
+
+    def __init__(self, name, function):
+        self.name = name
+        self.function = function
+
+    def performcalculation(self, first: Optional[float] = 0.0, second: Optional[float] = 0.0 ):
+        num1 = num2 = 0.0
+
+        try:
+            if first == second and first == 0.0:
+               num1 = float(input('Enter first number: '))
+               num2 = float(input('Enter second number: '))
+            else:
+                num1 = first
+                num2 = second
+            print(f"{self.name} - Result is {self.function(num1, num2)}")
+        except ValueError:
+            print('Error parsing input. Please enter a number...')
+
+        return num1, num2
+
+def clear_screen():
+    # 'nt' means Windows, otherwise assume POSIX (*nix)
+    command = 'cls' if os.name == 'nt' else 'clear'
+    os.system(command)
 
 def main():
-    os.system('cls')
-    print(' *** Module 1 *** \nPart 1\n')
+    clear_screen()
+    print('*** Module 1 ***\n')
 
-    try:
-        num1 = float(input('Enter first number: '))
-        num2 = float(input('Enter second number: '))
-        print(f"Result is {add(num1, num2)}" )
-        print('\nPart 2\n')
-        num1 = float(input('Enter first number: '))
-        num2 = float(input('Enter second number: '))
-        print(f"Result is {multiply(num1, num2)}" )
-        print(f"Result is {divide(num1, num2)}")
-    except ValueError:
-        print('Please enter a number\nExiting now...')
+    operations = [
+        ("\nPart 1", [Operation("Add", lambda a, b: a + b), Operation("Subtract", lambda a, b: a - b)]),
+        ("\nPart 2", [Operation("Multiply", lambda a, b: a * b), Operation("Divide", lambda a, b: a / b)]),
+    ]
+
+    for part, ops in operations:
+        print(part)
+        num1 = num2 = 0.0
+        for op in ops:
+            num1, num2  = op.performcalculation(num1, num2)
 
 if __name__ ==  '__main__': main()
