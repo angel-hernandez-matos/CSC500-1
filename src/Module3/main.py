@@ -16,7 +16,17 @@
 # a 24-hour clock when the alarm goes off.
 
 import os
-import inflect
+import subprocess
+import sys
+
+@staticmethod
+def __ensure_package(package_name):
+    try:
+        __import__(package_name)
+    except ImportError:
+        print(f"Installing missing package: {package_name}")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
+        print(f"Package '{package_name}' was installed successfully.")
 
 class AlarmCalculator:
     def calculate(self):
@@ -68,11 +78,12 @@ class BillCalculator:
     @staticmethod
     def __input_selection(self):
         count = 0
+        import inflect
         number_to = inflect.engine()
         print()
         while True:
             count = count + 1
-            selection = input(f"Enter your  {number_to.ordinal(count)} meal and price (e.g.:, 'steak 12.5' or rice_and_chicken 20.30): ")
+            selection = input(f"Enter your  {number_to.ordinal(count)} meal and price (e.g.:, steak 12.5 or rice_and_chicken 20.30): ")
 
             if not selection.strip():
                 break
@@ -92,6 +103,7 @@ def clear_screen():
     os.system(command)
 
 def main():
+    __ensure_package("inflect") # let's download required packages (if missing)
     clear_screen()
     print('*** Module 3 - Critical Thinking ***\n')
 
