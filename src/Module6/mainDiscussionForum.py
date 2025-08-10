@@ -6,8 +6,6 @@
 # Insert, update and delete operations on list and dictionary
 
 import os
-import subprocess
-import sys
 
 def clear_screen():
     # 'nt' means Windows, otherwise assume POSIX (*nix)
