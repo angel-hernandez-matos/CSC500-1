@@ -1,4 +1,4 @@
-# File: main.py
+# File: mainPP8.py
 # Written by: Angel Hernandez
 # Description: Module 8 - Portfolio Project
 # Requirement(s):
